@@ -200,7 +200,7 @@ public class MongoDbClient extends DB {
             DBCollection collection = db.getCollection(table);
             DBObject r = new BasicDBObject().append("_id", key);
             for (String k : values.keySet()) {
-                r.put(k, values.get(k).toArray());
+                r.put(k, values.get(k).toString());
             }
             WriteResult res = collection.insert(r, writeConcern);
             return res.getError() == null ? 0 : 1;
@@ -292,7 +292,7 @@ public class MongoDbClient extends DB {
             Iterator<String> keys = values.keySet().iterator();
             while (keys.hasNext()) {
                 String tmpKey = keys.next();
-                fieldsToSet.put(tmpKey, values.get(tmpKey).toArray());
+                fieldsToSet.put(tmpKey, values.get(tmpKey).toString());
 
             }
             u.put("$set", fieldsToSet);
